@@ -4,13 +4,18 @@ public class DistanceMatrix extends Matrix {
 
 	public DistanceMatrix(int size) {
 		super(size);
+		init();
 	}
 	
 	@Override
 	public void init() {
 		for(int i=0;i<size;i++) {
 			for(int j=0;j<size;j++) {
-				setValueAt(i, j, 0);
+				if(i != j) {
+					setValueAt(i, j, -1);
+				} else {
+					setValueAt(i, i, 0);
+				}
 			}
 		}
 	}
@@ -19,12 +24,7 @@ public class DistanceMatrix extends Matrix {
 	public void populate(Matrix m) {
 		for(int i=0;i<size;i++) {
 			for(int j=0;j<size;j++) {
-				if(i != j) {
-					setValueAt(i, j, m.getValueAt(i, j));
-				} else {
-					// by default diagonal is set to 0
-					setValueAt(i, i, 0);
-				}
+				if(m.getValueAt(i, j) == 1) setValueAt(i, j, m.getValueAt(i, j));
 			}
 		}		
 	}

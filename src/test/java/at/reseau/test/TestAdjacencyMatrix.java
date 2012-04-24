@@ -45,6 +45,7 @@ public class TestAdjacencyMatrix {
 		System.out.println();
 		System.out.println("--------- weg --------");
 		weg.print();
+		
 	}
 	
 }
