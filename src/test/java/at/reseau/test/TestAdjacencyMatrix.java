@@ -1,12 +1,17 @@
 package at.reseau.test;
 
-import org.junit.*;
-import at.reseau.graph.model.*;
-import at.reseau.graph.util.UtilMatrix;
+import java.util.ArrayList;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import at.reseau.graph.model.AdjacencyMatrix;
+import at.reseau.graph.model.DistanceMatrix;
+import at.reseau.graph.model.WegeMatrix;
 
 public class TestAdjacencyMatrix {
 
-	private int size = 10;
+	private int size = 5;
 	private AdjacencyMatrix adjacency;
 	private DistanceMatrix distance;
 	private WegeMatrix weg;
@@ -17,10 +22,11 @@ public class TestAdjacencyMatrix {
 		distance = new DistanceMatrix(size);
 		weg = new WegeMatrix(size);
 		adjacency.addEdge(0, 1);
+		adjacency.addEdge(0, 2);
 		adjacency.addEdge(1, 2);
-		adjacency.addEdge(2, 3);
-		adjacency.addEdge(4, 5);
-		adjacency.addEdge(6, 7);
+		adjacency.addEdge(1, 3);
+		//adjacency.addEdge(2, 4);
+		adjacency.addEdge(3, 4);
 		distance.populate(adjacency);
 		weg.populate(adjacency);
 	}
@@ -37,15 +43,33 @@ public class TestAdjacencyMatrix {
 		
 		System.out.println();
 		System.out.println("--------- weg --------");
-		weg.print();
+		weg.print();	
 		
-		UtilMatrix util = new UtilMatrix();
-		
-		weg.populate(util.power(weg, size));
 		System.out.println();
-		System.out.println("--------- weg --------");
-		weg.print();
+		System.out.println("--------- Exzentritäten --------");
+		ArrayList<Integer> x = distance.getEccentricity();
+		for(int i : x) {
+			System.out.println(i);
+		}
 		
+		System.out.println();
+		System.out.println("--------- Radius --------");
+		System.out.println(distance.getRadius());
+		
+		System.out.println();
+		System.out.println("--------- Durchmesser --------");
+		System.out.println(distance.getDiameter());
+		
+		System.out.println();
+		System.out.println("--------- Komponenten --------");
+		System.out.println(weg.getComponents());
+		
+		System.out.println();
+		System.out.println("--------- Zentrum --------");
+		ArrayList<Integer> c = distance.getCenter();
+		for(int i : c) {
+			System.out.println(i);
+		}
 	}
 	
 }

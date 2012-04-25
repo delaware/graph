@@ -12,7 +12,7 @@ public class Matrix implements BaseMatrix{
 	}
 	
 	public Matrix(int size) {
-		if(size < 1 || size > 100) {
+		if(size < 2 || size > 100) {
 			throw new IllegalArgumentException();
 		}
 		// initialize matrix
@@ -79,6 +79,23 @@ public class Matrix implements BaseMatrix{
 				setValueAt(i, j, 0);
 			}
 		}		
+	}
+
+	public Matrix multiply(Matrix m, Matrix n) {
+		int sum = 0;
+		Matrix result = new Matrix(m.getSize());
+		
+		for (int i=0;i<m.getSize();i++) {
+			for (int j=0;j<m.getSize();j++) {
+				for (int r=0;r<m.getSize();r++) {
+					sum = result.getValueAt(i, j);
+					if((sum += m.getValueAt(i,r) * n.getValueAt(r, j)) >= 1) {
+						result.setValueAt(i, j, sum);
+					}
+				}
+			}
+		}
+		return result;
 	}
 	
 }
