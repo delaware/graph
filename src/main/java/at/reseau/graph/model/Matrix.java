@@ -1,26 +1,21 @@
 package at.reseau.graph.model;
 
-public class Matrix implements BaseMatrix{
+public class Matrix {
 
 	protected int[][] values;
-	// default graph size
-	protected int size = 5;
-
-	public Matrix() {
-		// initialize matrix
-		values = new int[size][size];
-	}
+	protected int size;
 	
+	// constructor create N-by-N matrix of given size 
 	public Matrix(int size) {
 		if(size < 2 || size > 100) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Size of matrix must be between 2 and 100");
 		}
-		// initialize matrix
 		this.size = size;
 		values = new int[size][size];
 		init();
 	}
 	
+	// set all values in matrix to 0
 	public void init() {
 		for(int i=0;i<size;i++) {
 			for(int j=0;j<size;j++) {
@@ -52,7 +47,25 @@ public class Matrix implements BaseMatrix{
 		}
 		values[row][column] = value;
 	}
-
+    
+    // return C = A * B
+	public Matrix multiply(Matrix A, Matrix B) {
+		int sum = 0;
+		Matrix C = new Matrix(A.getSize());
+		
+		for (int i=0;i<A.getSize();i++) {
+			for (int j=0;j<A.getSize();j++) {
+				for (int r=0;r<A.getSize();r++) {
+					sum = C.getValueAt(i, j);
+					if((sum += A.getValueAt(i,r) * B.getValueAt(r, j)) >= 1) {
+						C.setValueAt(i, j, sum);
+					}
+				}
+			}
+		}
+		return C;
+	}
+	
 	public void print() {
 		String header = "x | ";
 		String line = "- - ";
@@ -72,30 +85,4 @@ public class Matrix implements BaseMatrix{
 			System.out.println(s);
 		}
 	}
-
-	public void populate(Matrix m) {
-		for(int i=0;i<size;i++) {
-			for(int j=0;j<size;j++) {
-				setValueAt(i, j, 0);
-			}
-		}		
-	}
-
-	public Matrix multiply(Matrix m, Matrix n) {
-		int sum = 0;
-		Matrix result = new Matrix(m.getSize());
-		
-		for (int i=0;i<m.getSize();i++) {
-			for (int j=0;j<m.getSize();j++) {
-				for (int r=0;r<m.getSize();r++) {
-					sum = result.getValueAt(i, j);
-					if((sum += m.getValueAt(i,r) * n.getValueAt(r, j)) >= 1) {
-						result.setValueAt(i, j, sum);
-					}
-				}
-			}
-		}
-		return result;
-	}
-	
 }

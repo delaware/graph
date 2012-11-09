@@ -1,7 +1,6 @@
 package at.reseau.graph.model;
 
 import java.util.ArrayList;
-import at.reseau.graph.util.*;
 
 public class DistanceMatrix extends Matrix {
 
@@ -23,7 +22,6 @@ public class DistanceMatrix extends Matrix {
 		}
 	}
 
-	@Override
 	public void populate(Matrix m) {
 		Matrix power = m,temp = this;
 		
@@ -53,7 +51,7 @@ public class DistanceMatrix extends Matrix {
 		for(int i=0;i<size;i++) {
 			int temp = 0;
 			for(int j=0;j<size;j++) {
-				temp = UtilMatrix.max(temp,getValueAt(i, j));
+				temp = Math.max(temp,getValueAt(i, j));
 			}
 			eccentricity.add(temp);
 		}		
@@ -65,7 +63,7 @@ public class DistanceMatrix extends Matrix {
 		int diameter = 0;
 		
 		for(int i : eccentricity) {
-			diameter = UtilMatrix.max(i,diameter);
+			diameter = Math.max(i,diameter);
 		}
 		return diameter;
 	}
@@ -75,7 +73,7 @@ public class DistanceMatrix extends Matrix {
 		int radius = size;
 		
 		for(int i : eccentricity) {
-			radius = UtilMatrix.min(i,radius);
+			radius = Math.min(i,radius);
 		}
 		return radius;
 	}
