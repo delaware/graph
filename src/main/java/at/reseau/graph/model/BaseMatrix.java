@@ -1,4 +1,4 @@
-package at.reseau.graph.old;
+package at.reseau.graph.model;
 
 public interface BaseMatrix {
 	// adjacency, distance and weg are initialized in a different way

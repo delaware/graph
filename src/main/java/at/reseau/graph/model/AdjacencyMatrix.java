@@ -7,15 +7,15 @@ public class AdjacencyMatrix extends Matrix {
 	public AdjacencyMatrix(int size) {
 		super(size);
 	}
-	
-	// create a random N-by-N matrix with values between 0 and 1
-    public void random() {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-            	if(i!=j) { this.values[i][j] = (Math.random()<0.8)?0:1; }
-    		}
+
+	public AdjacencyMatrix(Matrix m) {
+		super(m.getSize());
+		for(int i=0;i<size;i++) {
+			for(int j=0;j<size;j++) {
+				if(m.getValueAt(i, j) == 1) setValueAt(i, j, m.getValueAt(i, j));
+			}
 		}
-    }
+	}
 	
 	public void addEdge(int nodeA, int nodeB) {
 		setValueAt(nodeA, nodeB, 1);
@@ -43,5 +43,4 @@ public class AdjacencyMatrix extends Matrix {
 		}		
 		return degrees;
 	}
-
 }

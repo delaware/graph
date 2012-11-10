@@ -11,25 +11,24 @@ import at.reseau.graph.model.PathMatrix;
 
 public class TestAdjacencyMatrix {
 
-	private int size = 20;
+	private int size = 5;
 	private AdjacencyMatrix adjacency;
 	private DistanceMatrix distance;
-	private PathMatrix path;
+	private PathMatrix weg;
 	
 	@Before
 	public void setup() {
 		adjacency = new AdjacencyMatrix(size);
 		distance = new DistanceMatrix(size);
-		path = new PathMatrix(size);
-		adjacency.random();
-//		adjacency.addEdge(0, 1);
-//		adjacency.addEdge(0, 2);
-//		adjacency.addEdge(1, 2);
-//		adjacency.addEdge(2, 3);
-//		adjacency.addEdge(2, 4);
-//		adjacency.addEdge(3, 4);
+		weg = new PathMatrix(size);
+		adjacency.addEdge(0, 1);
+		adjacency.addEdge(0, 2);
+		adjacency.addEdge(1, 2);
+		adjacency.addEdge(1, 3);
+		//adjacency.addEdge(2, 4);
+		adjacency.addEdge(3, 4);
 		distance.populate(adjacency);
-		path.populate(adjacency);
+		weg.populate(adjacency);
 	}
 	
 	@Test
@@ -44,7 +43,7 @@ public class TestAdjacencyMatrix {
 		
 		System.out.println();
 		System.out.println("--------- weg --------");
-		path.print();	
+		weg.print();	
 		
 		System.out.println();
 		System.out.println("--------- Exzentritäten --------");
@@ -63,7 +62,7 @@ public class TestAdjacencyMatrix {
 		
 		System.out.println();
 		System.out.println("--------- Komponenten --------");
-		System.out.println(path.getComponents());
+		System.out.println(weg.getComponents());
 		
 		System.out.println();
 		System.out.println("--------- Zentrum --------");
