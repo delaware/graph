@@ -29,10 +29,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import net.miginfocom.swing.MigLayout;
-import at.reseau.graph.model.AdjacencyMatrix;
 import at.reseau.graph.model.DistanceMatrix;
 import at.reseau.graph.model.Matrix;
-import at.reseau.graph.model.WegeMatrix;
+import at.reseau.graph.model.PathMatrix;
 import at.reseau.graph.util.FileHelper;
 
 public class MainFrame extends JFrame {
@@ -98,14 +97,12 @@ public class MainFrame extends JFrame {
                 {
 			public void stateChanged(ChangeEvent e) {
 				Matrix input = matrixPanel.getCurrentMatrix();
-				WegeMatrix weg = new WegeMatrix(input.getSize());
-				weg.populate(input);
-				DistanceMatrix distance = new DistanceMatrix(input.getSize());
-				distance.populate(input);
+				PathMatrix path = new PathMatrix(input);
+				DistanceMatrix distance = new DistanceMatrix(input);
 				matrixPanel
 						.updateWith(new Matrix(sizeSlider.getValue()), false);
 				graphPanel.updateWith(input);
-				pathPanel.updateWith(weg, true);
+				pathPanel.updateWith(path, true);
 				distancePanel.updateWith(distance, true);
 			}
 		});
@@ -118,13 +115,11 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) 
                         {
 				Matrix input = matrixPanel.getCurrentMatrix();
-				WegeMatrix weg = new WegeMatrix(input.getSize());
-				weg.populate(input);
-				DistanceMatrix distance = new DistanceMatrix(input.getSize());
-				distance.populate(input);
+				PathMatrix path = new PathMatrix(input);
+				DistanceMatrix distance = new DistanceMatrix(input);
 				
 				distancePanel.updateWith(distance, true);
-				pathPanel.updateWith(weg, true);
+				pathPanel.updateWith(path, true);
 				calculationPanel.updateWith(input);
 				monitoringPanel.updateWith(input);
 				graphPanel.updateWith(input);
@@ -150,15 +145,13 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Matrix blank = new Matrix();
 				
-				WegeMatrix weg = new WegeMatrix(blank.getSize());
-				weg.populate(blank);
-				DistanceMatrix distance = new DistanceMatrix(blank.getSize());
-				distance.populate(blank);
+				PathMatrix path = new PathMatrix(blank);
+				DistanceMatrix distance = new DistanceMatrix(blank);
 				
 				matrixPanel.updateWith(blank, true);
 				sizeSlider.setValue(blank.getSize());
 				distancePanel.updateWith(distance, true);
-				pathPanel.updateWith(weg, true);
+				pathPanel.updateWith(path, true);
 				graphPanel.updateWith(blank);
 				calculationPanel.clear();
 			}
@@ -280,8 +273,8 @@ public class MainFrame extends JFrame {
 		add(calculationToolbar, "north");
 		Matrix blank = new Matrix();
 		
-		WegeMatrix weg = new WegeMatrix(blank.getSize());
-		weg.populate(blank);
+		PathMatrix path = new PathMatrix(blank.getSize());
+		path.populate(blank);
 		DistanceMatrix distance = new DistanceMatrix(blank.getSize());
 		distance.populate(blank);
 
@@ -292,10 +285,10 @@ public class MainFrame extends JFrame {
 		outputPanels.add(graphPanel = new GraphPanel("Graph"), "w 305, h 305");
 		graphPanel.updateWith(new Matrix());
 
-		outputPanels.add(pathPanel = new MatrixPanel("Wegmatrix",
-				weg, false, true));
+		outputPanels.add(pathPanel = new MatrixPanel("PathMatrix",
+				path, false, true));
 		pathPanel.setSelectedColor(new Color(255, 255, 51));
-		outputPanels.add(distancePanel = new MatrixPanel("Distanzmatrix",
+		outputPanels.add(distancePanel = new MatrixPanel("DistanceMatrix",
 				distance, false, true));
 		distancePanel.setSelectedColor(new Color(255, 255, 51));
 

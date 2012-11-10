@@ -8,6 +8,15 @@ public class AdjacencyMatrix extends Matrix {
 		super(size);
 	}
 
+	public AdjacencyMatrix(Matrix m) {
+		super(m.getSize());
+		for(int i=0;i<size;i++) {
+			for(int j=0;j<size;j++) {
+				if(m.getValueAt(i, j) == 1) setValueAt(i, j, m.getValueAt(i, j));
+			}
+		}
+	}
+	
 	public void addEdge(int nodeA, int nodeB) {
 		setValueAt(nodeA, nodeB, 1);
 		setValueAt(nodeB, nodeA, 1);

@@ -41,6 +41,17 @@ public class ConsolePanel extends JPanel
         {
 
 		String text = "<font size =3 face=Fixedsys>";
+		text += "<p>" + "<b>Matrix:</b><br>";
+		text += matrix;
+
+		text += "<p>" + "<b>Selektierte Kanten:</b><br>";
+		ArrayList<ArrayList<Integer>> kanten = matrix.selektierteKanten();
+		text += "Anzahl: " + kanten + "<br>";
+
+		text += "<p>" + "<b>Selektierte Knoten:</b><br>";
+		ArrayList<Integer> knoten = matrix.selektierteKnoten();
+
+		text += "Anzahl: " + "{ " +  knoten + " }" + "<br>";
 		
 		textPane.setText(text);
 		textPane.setCaretPosition(0);

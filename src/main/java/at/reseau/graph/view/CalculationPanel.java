@@ -2,12 +2,16 @@ package at.reseau.graph.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
+import at.reseau.graph.model.AdjacencyMatrix;
+import at.reseau.graph.model.DistanceMatrix;
 import at.reseau.graph.model.Matrix;
+import at.reseau.graph.model.PathMatrix;
 
 public class CalculationPanel extends JPanel {
 
@@ -37,7 +41,34 @@ public class CalculationPanel extends JPanel {
 		String text = "<font size =3 face=Fixedsys>";
                 //text += "Noch keine Ausgabe ;)";
  
+		PathMatrix path = new PathMatrix(matrix);
+		DistanceMatrix distance = new DistanceMatrix(matrix);
+		AdjacencyMatrix adjacency = new AdjacencyMatrix(matrix);
+		
+		text += "<p><b>KOMPONENTEN:</b><br>";
+		text += "Anzahl: " + path.getComponents() + "<br>";
 		text += "<p>";
+		
+		text += "<p><b>RADIUS:</b><br>";
+		text += "Anzahl: " + distance.getRadius() + "<br>";
+		text += "<p>";
+		
+		text += "<p><b>DURCHMESSER:</b><br>";
+		text += "Anzahl: " + distance.getDiameter() + "<br>";
+		text += "<p>";
+		
+		text += "<p><b>EXZENTRITÄTEN:</b><br>";
+		ArrayList<Integer> eccentricity = distance.getEccentricity();
+		for(int i = 0; i < eccentricity.size(); i++) {
+			text += "Knoten " + (i + 1) + ": " + eccentricity.get(i) + "<br>";
+		}
+		
+		text += "<p><b>KNOTENGRADE:</b><br>";
+		ArrayList<Integer> degrees = adjacency.getDegreeList();
+		for(int i = 0; i < degrees.size(); i++) {
+			text += "Knoten " + (i + 1) + ": " + degrees.get(i) + "<br>";
+		}
+		
 		textPane.setText(text);
 		textPane.setCaretPosition(0);
 
