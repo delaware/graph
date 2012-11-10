@@ -10,7 +10,7 @@ public class Matrix implements BaseMatrix, Serializable{
 	protected int[][] values;
 	// default graph size
 	public int size = DEFAULT_SIZE;
-	public static int DEFAULT_SIZE = 5;
+	public static int DEFAULT_SIZE = 8;
 	
 	public Matrix() {
 		// initialize matrix
