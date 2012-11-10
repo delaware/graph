@@ -52,7 +52,7 @@ public class GraphPanel extends JPanel
 		}
 
 		int i = 0;
-		for (ArrayList<Integer> selektierteKanten : matrix.selektierteKanten()) 
+		for (ArrayList<Integer> selektierteKanten : matrix.selectEdge()) 
                 {
 			graph.addEdge("Edge" + i, selektierteKanten);
 			i++;

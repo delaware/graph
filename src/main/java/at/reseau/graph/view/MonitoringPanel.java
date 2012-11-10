@@ -38,44 +38,43 @@ public class MonitoringPanel extends JPanel {
 
 	public void updateWith(Matrix matrix) 
         {
-
-		AdjacencyMatrix m = new AdjacencyMatrix(matrix.getSize());
-		m.populate(matrix);
+		AdjacencyMatrix m = new AdjacencyMatrix(matrix);
 		
 		String text = "<font size =3 face=Fixedsys>";
 
-		text += "<b>Beteiligte Knoten:</b><br>" + "Anzahl: "
-				+ matrix.getSize() + "<br>";
+		// selected nodes
+		text += "<b>Beteiligte Knoten:</b><br>";
+		text += "Anzahl: " + m.getSize() + "<br>";
 		String knotenText = "{ }";
 		text += "Knoten:";
-		ArrayList<Integer> knoten = matrix.selektierteKnoten();
-		if (matrix.selektierteKnoten().size() > 0) {
-			knotenText = "{ " + knoten.get(0).toString();
-
-			for (int i = 1; i < knoten.size(); i++) {
-				knotenText += ", " + knoten.get(i);
+		ArrayList<Integer> nodes = m.selectNode();
+		if (m.selectNode().size() > 0) {
+			knotenText = "{ " + nodes.get(0).toString();
+			for (int i = 1; i < nodes.size(); i++) {
+				knotenText += ", " + nodes.get(i);
 			}
 			knotenText += " }";
 		}
 		text += knotenText + "<br>";
 
-		text += "<p>" + "<b>Ausgewählte Kanten:</b><br>" + "Anzahl: "
+		// selected edges
+		text += "<p><b>Ausgewählte Kanten:</b><br>Anzahl: "
 				+ m.getDegreeList() + "<br>";
 		String kantenText = "{ }";
 		text += "Kanten:";
 
-		ArrayList<ArrayList<Integer>> kanten = matrix.selektierteKanten();
-		if (matrix.selektierteKanten().size() > 0) {
-			kantenText = "{ " + kanten.get(0).toString();
+		ArrayList<ArrayList<Integer>> edges = m.selectEdge();
+		if (m.selectEdge().size() > 0) {
+			kantenText = "{ " + edges.get(0).toString();
 
-			for (int i = 1; i < kanten.size(); i++) {
-				kantenText += ", " + kanten.get(i);
+			for (int i = 1; i < edges.size(); i++) {
+				kantenText += ", " + edges.get(i);
 			}
 			kantenText += " }";
 		}
 		text += kantenText + "<br>";
-
-                textPane.setText(text);
+		
+		textPane.setText(text);
 		textPane.setCaretPosition(0);
 	}
 }

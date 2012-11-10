@@ -45,11 +45,11 @@ public class ConsolePanel extends JPanel
 		text += matrix;
 
 		text += "<p>" + "<b>Selektierte Kanten:</b><br>";
-		ArrayList<ArrayList<Integer>> kanten = matrix.selektierteKanten();
+		ArrayList<ArrayList<Integer>> kanten = matrix.selectEdge();
 		text += "Anzahl: " + kanten + "<br>";
 
 		text += "<p>" + "<b>Selektierte Knoten:</b><br>";
-		ArrayList<Integer> knoten = matrix.selektierteKnoten();
+		ArrayList<Integer> knoten = matrix.selectNode();
 
 		text += "Anzahl: " + "{ " +  knoten + " }" + "<br>";
 		

@@ -8,7 +8,7 @@ public class Matrix implements BaseMatrix{
 	protected int[][] values;
 	// default graph size
 	public int size = DEFAULT_SIZE;
-	public static int DEFAULT_SIZE = 5;
+	public static int DEFAULT_SIZE = 8;
 	
 	public Matrix() {
 		// initialize matrix
@@ -102,59 +102,39 @@ public class Matrix implements BaseMatrix{
 		return result;
 	}
 	
-	public ArrayList<ArrayList<Integer>> selektierteKanten() {
-		ArrayList<ArrayList<Integer>> selektierteKanten = new ArrayList<ArrayList<Integer>>();
-		// Durchlaufe alle Zeilen und Spalten.
+	public ArrayList<ArrayList<Integer>> selectEdge() {
+		ArrayList<ArrayList<Integer>> edges = new ArrayList<ArrayList<Integer>>();
 		for (int row = 0; row < getSize(); row++) {
 			for (int column = 0; column < getSize(); column++) {
-				// Verarbeite die aktuelle Kante nur, wenn es sich nicht um die
-				// Diagonale handelt und der Wert > 0 ist (also eine Kante
-				// eingetragen ist f�r diese Verbindung).
 				if (values[row][column] > 0) {
-					// Erstelle eine neue Liste, in welche die zwei
-					// Knoten-Nummern eingetragen werden sollen.
 					ArrayList<Integer> neueKante = new ArrayList<Integer>();
-					// F�ge zuerst den Knoten mit der kleineren Nummer ein, dann
-					// jenen mit der gr��eren.
 					neueKante.add(Math.min(row + 1, column + 1));
 					neueKante.add(Math.max(column + 1, row + 1));
-
-					if (!selektierteKanten.contains(neueKante)) {
-						selektierteKanten.add(neueKante);
+					if (!edges.contains(neueKante)) {
+						edges.add(neueKante);
 					}
 				}
 			}
 		}
-		return selektierteKanten;
+		return edges;
 	}
 
-	/**
-         * Gibt eine Liste aller Knoten zurück. Wird für die GUI benötigt.
-         * @return selektierteKnoten - Alle Knoten als ArrayList.
-         */
-	public ArrayList<Integer> selektierteKnoten() {
-		ArrayList<Integer> selektierteKnoten = new ArrayList<Integer>();
-		// Durchlaufe alle Zeilen und Spalten.
+	public ArrayList<Integer> selectNode() {
+		ArrayList<Integer> nodes = new ArrayList<Integer>();
 		for (int row = 0; row < getSize(); row++) {
 			for (int column = 0; column < getSize(); column++) {
-				// Ignoriere die Diagonale. Es werden nur Knoten gewertet, die
-				// abseits der Diagonale eingetragen worden sind, deren Wert
-				// also > 0 ist.
 				if (values[row][column] > 0) {
-					// Wurden Zeile oder Spalte noch nicht in die Liste
-					// eingetragen, dann f�ge sie ein.
-					if (!selektierteKnoten.contains(row + 1)) {
-						selektierteKnoten.add(row + 1);
+					if (!nodes.contains(row + 1)) {
+						nodes.add(row + 1);
 					}
-					if (!selektierteKnoten.contains(column + 1)) {
-						selektierteKnoten.add(column + 1);
+					if (!nodes.contains(column + 1)) {
+						nodes.add(column + 1);
 					}
 				}
 			}
 		}
-		// Sortiere die Liste von Knoten.
-		Collections.sort(selektierteKnoten);
-		return selektierteKnoten;
+		Collections.sort(nodes);
+		return nodes;
 	}
 	
 }

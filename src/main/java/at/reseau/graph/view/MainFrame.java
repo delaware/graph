@@ -145,8 +145,8 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Matrix blank = new Matrix();
 				
-				PathMatrix path = new PathMatrix(blank);
-				DistanceMatrix distance = new DistanceMatrix(blank);
+				PathMatrix path = new PathMatrix(blank.getSize());
+				DistanceMatrix distance = new DistanceMatrix(blank.getSize());
 				
 				matrixPanel.updateWith(blank, true);
 				sizeSlider.setValue(blank.getSize());
@@ -279,7 +279,7 @@ public class MainFrame extends JFrame {
 		distance.populate(blank);
 
 		JPanel outputPanels = new JPanel(new MigLayout("wrap 2"));
-		outputPanels.add(matrixPanel = new MatrixPanel("Eingabematrix",
+		outputPanels.add(matrixPanel = new MatrixPanel("AdjacencyMatrix",
 				new Matrix(), true, false));
 		matrixPanel.setSelectedColor(new Color(0, 255, 0));
 		outputPanels.add(graphPanel = new GraphPanel("Graph"), "w 305, h 305");
