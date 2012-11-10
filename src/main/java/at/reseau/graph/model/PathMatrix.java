@@ -84,7 +84,7 @@ public class PathMatrix extends Matrix {
 		return components.size();
 	}
 	
-	public ArrayList<Integer> getArticulation(AdjacencyMatrix m) {
+	public ArrayList<Integer> getArticulations(AdjacencyMatrix m) {
 		int current = getComponents();
 		ArrayList<Integer> articulations = new ArrayList<Integer>();
 		
@@ -92,8 +92,8 @@ public class PathMatrix extends Matrix {
 			Matrix temp = new Matrix();
 			temp.populate(m);
 			for(int i=0;i<size;i++) {
-					temp.setValueAt(node, i, 0);
-					temp.setValueAt(i, node, 0);
+				temp.setValueAt(node, i, 0);
+				temp.setValueAt(i, node, 0);
 			}
 			PathMatrix path = new PathMatrix(temp);
 			if(path.getComponents() - 1 > current) {
@@ -101,6 +101,35 @@ public class PathMatrix extends Matrix {
 			}
 		}
 		return articulations;
+	}
+	
+	public ArrayList<String> getBrigdes(AdjacencyMatrix m) {
+		int current = getComponents();
+		ArrayList<String> bridges = new ArrayList<String>();
+		
+		Matrix temp = new Matrix();
+		temp.populate(m);
+		
+		for(int row=0;row<size;row++) {
+			for(int column=0;column<size;column++) {
+				if(temp.getValueAt(row, column) == 1) {
+					temp.setValueAt(row, column, 0);
+					temp.setValueAt(column, row, 0);
+					PathMatrix path = new PathMatrix(temp);
+					if(path.getComponents() > current) {
+						ArrayList<Integer> bridge = new ArrayList<Integer>();
+						bridge.add(Math.min(column + 1, row + 1));
+                        bridge.add(Math.max(column + 1, row + 1));
+                        if(!bridges.contains(bridge.toString())) {
+                            bridges.add(bridge.toString());
+                        }
+					}
+					temp.setValueAt(row, column, 1);
+					temp.setValueAt(column, row, 1);
+				}
+			}
+		}
+		return bridges;
 	}
 	
 

@@ -72,9 +72,26 @@ public class CalculationPanel extends JPanel {
 		text += "<p>";
 		
 		text += "<p><b>Artikulation:</b><br>";
-		ArrayList<Integer> articulations = path.getArticulation(adjacency);
+		ArrayList<Integer> articulations = path.getArticulations(adjacency);
 		text += "Anzahl: " + articulations.size() + "<br>";
 		text += "Knoten: " + articulations + "<p>";
+		
+		text += "<p>" + "<b>BRÜCKEN:</b><br>" + "Anzahl: "
+				+ path.getBrigdes(adjacency).size() + "<br>";
+		String brueckenText = "{ }";
+		
+		text += "Kanten:";
+
+		ArrayList<String> bruecken = path.getBrigdes(adjacency);
+		if (path.getBrigdes(adjacency).size() > 0) {
+			brueckenText = "{ " + bruecken.get(0).toString();
+
+			for (int i = 1; i < bruecken.size(); i++) {
+				brueckenText += ", " + bruecken.get(i);
+			}
+			brueckenText += " }";
+		}
+		text += brueckenText;
 		
 		textPane.setText(text);
 		textPane.setCaretPosition(0);
