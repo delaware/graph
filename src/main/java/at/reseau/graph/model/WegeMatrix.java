@@ -8,7 +8,7 @@ public class WegeMatrix extends Matrix {
 		super(size);
 		init();
 	}
-	
+
 	@Override
 	public void init() {
 		for(int i=0;i<size;i++) {
