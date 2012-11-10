@@ -62,12 +62,19 @@ public class CalculationPanel extends JPanel {
 		for(int i = 0; i < eccentricity.size(); i++) {
 			text += "Knoten " + (i + 1) + ": " + eccentricity.get(i) + "<br>";
 		}
+		text += "<p>";
 		
 		text += "<p><b>KNOTENGRADE:</b><br>";
 		ArrayList<Integer> degrees = adjacency.getDegreeList();
 		for(int i = 0; i < degrees.size(); i++) {
 			text += "Knoten " + (i + 1) + ": " + degrees.get(i) + "<br>";
 		}
+		text += "<p>";
+		
+		text += "<p><b>Artikulation:</b><br>";
+		ArrayList<Integer> articulations = path.getArticulation(adjacency);
+		text += "Anzahl: " + articulations.size() + "<br>";
+		text += "Knoten: " + articulations + "<p>";
 		
 		textPane.setText(text);
 		textPane.setCaretPosition(0);

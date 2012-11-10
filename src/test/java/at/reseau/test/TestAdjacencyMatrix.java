@@ -1,7 +1,5 @@
 package at.reseau.test;
 
-import java.util.ArrayList;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,43 +31,7 @@ public class TestAdjacencyMatrix {
 	
 	@Test
 	public void test() {
-		System.out.println();
-		System.out.println("--------- adjacency --------");
-		adjacency.print();
-		
-		System.out.println();
-		System.out.println("--------- distance --------");
-		distance.print();
-		
-		System.out.println();
-		System.out.println("--------- weg --------");
-		weg.print();	
-		
-		System.out.println();
-		System.out.println("--------- Exzentritäten --------");
-		ArrayList<Integer> x = distance.getEccentricity();
-		for(int i : x) {
-			System.out.println(i);
-		}
-		
-		System.out.println();
-		System.out.println("--------- Radius --------");
-		System.out.println(distance.getRadius());
-		
-		System.out.println();
-		System.out.println("--------- Durchmesser --------");
-		System.out.println(distance.getDiameter());
-		
-		System.out.println();
-		System.out.println("--------- Komponenten --------");
-		System.out.println(weg.getComponents());
-		
-		System.out.println();
-		System.out.println("--------- Zentrum --------");
-		ArrayList<Integer> c = distance.getCenter();
-		for(int i : c) {
-			System.out.println(i);
-		}
+
 	}
 	
 }

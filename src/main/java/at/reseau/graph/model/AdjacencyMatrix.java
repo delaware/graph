@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class AdjacencyMatrix extends Matrix {
 
+	private static final long serialVersionUID = 8476638063623175350L;
+
 	public AdjacencyMatrix(int size) {
 		super(size);
 	}

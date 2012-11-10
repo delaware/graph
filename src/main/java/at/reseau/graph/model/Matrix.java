@@ -1,14 +1,16 @@
 package at.reseau.graph.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Matrix implements BaseMatrix{
+public class Matrix implements BaseMatrix, Serializable{
 
+	static final long serialVersionUID = 1L;
 	protected int[][] values;
 	// default graph size
 	public int size = DEFAULT_SIZE;
-	public static int DEFAULT_SIZE = 8;
+	public static int DEFAULT_SIZE = 3;
 	
 	public Matrix() {
 		// initialize matrix
@@ -57,30 +59,10 @@ public class Matrix implements BaseMatrix{
 		values[row][column] = value;
 	}
 
-	public void print() {
-		String header = "x | ";
-		String line = "- - ";
-		String[] row = new String[size];
-		
-		for(int i=0;i<size;i++) {
-			header += i + " ";
-			line += "- ";
-			row[i] = i + " | ";
-			for(int j=0;j<size;j++) {
-				row[i] += values[i][j] + " ";
-			}
-		}
-		System.out.println(header);
-		System.out.println(line);
-		for(String s : row) {
-			System.out.println(s);
-		}
-	}
-
 	public void populate(Matrix m) {
 		for(int i=0;i<size;i++) {
 			for(int j=0;j<size;j++) {
-				setValueAt(i, j, 0);
+				setValueAt(i, j, m.getValueAt(i, j));
 			}
 		}		
 	}

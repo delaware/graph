@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class PathMatrix extends Matrix {
 
+	private static final long serialVersionUID = 1991078984908956353L;
+
 	public PathMatrix(int size) {
 		super(size);
 		init();
@@ -80,6 +82,25 @@ public class PathMatrix extends Matrix {
 			if(!components.contains(checksum)) components.add(checksum);
 		}
 		return components.size();
+	}
+	
+	public ArrayList<Integer> getArticulation(AdjacencyMatrix m) {
+		int current = getComponents();
+		ArrayList<Integer> articulations = new ArrayList<Integer>();
+		
+		for(int node=0;node<size;node++) {
+			Matrix temp = new Matrix();
+			temp.populate(m);
+			for(int i=0;i<size;i++) {
+					temp.setValueAt(node, i, 0);
+					temp.setValueAt(i, node, 0);
+			}
+			PathMatrix path = new PathMatrix(temp);
+			if(path.getComponents() - 1 > current) {
+				articulations.add(node+1);
+			}
+		}
+		return articulations;
 	}
 	
 

@@ -5,6 +5,8 @@ import at.reseau.graph.util.*;
 
 public class DistanceMatrix extends Matrix {
 
+	private static final long serialVersionUID = -4857925271257146998L;
+
 	public DistanceMatrix(int size) {
 		super(size);
 		init();
