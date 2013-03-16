@@ -13,6 +13,27 @@ public class PathMatrix extends Matrix {
 	
 	public PathMatrix(Matrix m) {
 		super(m.getSize());
+		
+		// populate matrix with adjacency matrix
+		populate(m);
+	}
+
+	@Override
+	public void init() {
+		for(int i=0;i<size;i++) {
+			for(int j=0;j<size;j++) {
+				if(i != j) {
+					setValueAt(i, j, 0);
+				} else {
+					// by default diagonal is set to 1
+					setValueAt(i, i, 1);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void populate(Matrix m) {
 		Matrix temp = m;
 		
 		// populate matrix with adjacency matrix
@@ -33,43 +54,6 @@ public class PathMatrix extends Matrix {
 			}
 		}
 	}
-
-	@Override
-	public void init() {
-		for(int i=0;i<size;i++) {
-			for(int j=0;j<size;j++) {
-				if(i != j) {
-					setValueAt(i, j, 0);
-				} else {
-					// by default diagonal is set to 1
-					setValueAt(i, i, 1);
-				}
-			}
-		}
-	}
-
-//	@Override
-//	public void populate(Matrix m) {
-//		Matrix temp = m;
-//		
-//		// populate matrix with adjacency matrix
-//		for(int i=0;i<size;i++) {
-//			for(int j=0;j<size;j++) {
-//				if(m.getValueAt(i, j) == 1) setValueAt(i, j, m.getValueAt(i, j));
-//			}
-//		}
-//		
-//		// calculate matrix
-//		for(int i=0;i<size;i++) {
-//			temp = multiply(this, temp);
-//		}
-//		
-//		for(int i=0;i<size;i++) {
-//			for(int j=0;j<size;j++) {
-//				if(temp.getValueAt(i, j) >= 1) this.setValueAt(i, j, 1);
-//			}
-//		}
-//	}
 	
 	public int getComponents() {
 		ArrayList<Integer> components = new ArrayList<Integer>();
@@ -89,7 +73,7 @@ public class PathMatrix extends Matrix {
 		ArrayList<Integer> articulations = new ArrayList<Integer>();
 		
 		for(int node=0;node<size;node++) {
-			Matrix temp = new Matrix();
+			Matrix temp = new Matrix(m.getSize());
 			temp.populate(m);
 			for(int i=0;i<size;i++) {
 				temp.setValueAt(node, i, 0);
@@ -107,7 +91,7 @@ public class PathMatrix extends Matrix {
 		int current = getComponents();
 		ArrayList<String> bridges = new ArrayList<String>();
 		
-		Matrix temp = new Matrix();
+		Matrix temp = new Matrix(m.getSize());
 		temp.populate(m);
 		
 		for(int row=0;row<size;row++) {

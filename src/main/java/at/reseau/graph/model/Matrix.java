@@ -9,16 +9,17 @@ public class Matrix implements BaseMatrix, Serializable{
 	static final long serialVersionUID = 1L;
 	protected int[][] values;
 	// default graph size
-	public int size = DEFAULT_SIZE;
+	public int size;
 	public static int DEFAULT_SIZE = 6;
 	
 	public Matrix() {
 		// initialize matrix
-		values = new int[DEFAULT_SIZE][DEFAULT_SIZE];
+		this.size = DEFAULT_SIZE;
+		values = new int[size][size];
 	}
 	
 	public Matrix(int size) {
-		if(size < 2 || size > 100) {
+		if(size < 2 || size > 15) {
 			throw new IllegalArgumentException();
 		}
 		// initialize matrix
@@ -62,7 +63,7 @@ public class Matrix implements BaseMatrix, Serializable{
 	public void populate(Matrix m) {
 		for(int i=0;i<size;i++) {
 			for(int j=0;j<size;j++) {
-				setValueAt(i, j, m.getValueAt(i, j));
+				setValueAt(i, j, m.getValueAt(i,j));
 			}
 		}		
 	}
@@ -89,11 +90,11 @@ public class Matrix implements BaseMatrix, Serializable{
 		for (int row = 0; row < getSize(); row++) {
 			for (int column = 0; column < getSize(); column++) {
 				if (values[row][column] > 0) {
-					ArrayList<Integer> neueKante = new ArrayList<Integer>();
-					neueKante.add(Math.min(row + 1, column + 1));
-					neueKante.add(Math.max(column + 1, row + 1));
-					if (!edges.contains(neueKante)) {
-						edges.add(neueKante);
+					ArrayList<Integer> newEdge = new ArrayList<Integer>();
+					newEdge.add(Math.min(row + 1, column + 1));
+					newEdge.add(Math.max(column + 1, row + 1));
+					if (!edges.contains(newEdge)) {
+						edges.add(newEdge);
 					}
 				}
 			}

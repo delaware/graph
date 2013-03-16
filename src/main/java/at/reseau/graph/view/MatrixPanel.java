@@ -32,17 +32,14 @@ public class MatrixPanel extends JPanel
 
 	public MatrixPanel(String title, Matrix matrix, boolean editable, boolean enableDiagonal) 
         {
-		if (title == null || title.isEmpty()) 
-                {
-			throw new IllegalArgumentException(
-					"expected: title.length > 0, actual: " + title);
+		if (title == null || title.isEmpty()) {
+			throw new IllegalArgumentException("expected: title.length > 0, actual: " + title);
 		}
 
-		if (matrix == null) 
-                {
-			throw new IllegalArgumentException(
-					"expected: matrix != null, actual: " + matrix);
+		if (matrix == null) {
+			throw new IllegalArgumentException("expected: matrix != null, actual: " + matrix);
 		}
+		
 		border = new TitledBorder(title);
 		setBorder(border);
 		setLayout(new GridLayout(16, 16));
@@ -50,40 +47,29 @@ public class MatrixPanel extends JPanel
 		this.enableDiagonal = enableDiagonal;
 
 		add(new JLabel());
-		for (int column = 0; column < buttons[0].length; column++) 
-                {
+		for (int column = 0; column < buttons[0].length; column++) {
 			add(new JLabel(String.format("%02d", column + 1)));
 		}
 
-		for (int row = 0; row < buttons.length; row++) 
-                {
+		for (int row = 0; row < buttons.length; row++) {
 			add(new JLabel(String.format("%02d", row + 1)));
-			for (int column = 0; column < buttons[row].length; column++) 
-                        {
+			for (int column = 0; column < buttons[row].length; column++) {
 				add(buttons[row][column] = new JButton());
 				buttons[row][column].setBorder(new EtchedBorder());
 
 				final int r = row;
 				final int c = column;
 
-				if (editable) 
-                                {
-					buttons[row][column]
-							.addActionListener(new ActionListener() 
-                                                        {
+				if (editable) {
+					buttons[row][column].addActionListener(new ActionListener() 
+                           	{
 								public void actionPerformed(ActionEvent e) {
 									value[r][c] = (value[r][c] + 1) % 2;
 									value[c][r] = (value[c][r] + 1) % 2;
-									buttons[r][c]
-											.setBackground(value[r][c] == 0 ? unselectedColor
-													: selectedColor);
-									buttons[r][c].setText("<html>"
-											+ value[r][c] + "</html>");
-									buttons[c][r]
-											.setBackground(value[r][c] == 0 ? unselectedColor
-													: selectedColor);
-									buttons[c][r].setText("<html>"
-											+ value[r][c] + "</html>");
+									buttons[r][c].setBackground(value[r][c] == 0 ? unselectedColor : selectedColor);
+									buttons[r][c].setText("<html>" + value[r][c] + "</html>");
+									buttons[c][r].setBackground(value[r][c] == 0 ? unselectedColor : selectedColor);
+									buttons[c][r].setText("<html>" + value[r][c] + "</html>");
 								}
 							});
 				}
@@ -95,90 +81,62 @@ public class MatrixPanel extends JPanel
 		update(true);
 	}
 
-	public void updateSize(int dimension) 
-        {
+	public void updateSize(int dimension) {
 		updateWith(new Matrix(dimension), false);
 	}
 
-	private void update(boolean updateSelection) 
-        {
-		if (updateSelection) 
-                {
+	private void update(boolean updateSelection) {
+		if (updateSelection) {
 			value = new int[15][15];
 		}
 
-		for (int row = 0; row < buttons.length; row++) 
-                {
-			for (int column = 0; column < buttons[row].length; column++) 
-                        {
+		for (int row = 0; row < buttons.length; row++) {
+			for (int column = 0; column < buttons[row].length; column++) {
 
-				if (row == column && !enableDiagonal) 
-                                {
+				if (row == column && !enableDiagonal) {
 					setEnabled(false);
 				}
 
-				if (row < currentMatrix.getSize()
-						&& column < currentMatrix.getSize()) 
-                                {
-					if (updateSelection) 
-                                        {
-						value[row][column] = currentMatrix.getValueAt(row,
-								column);
+				if (row < currentMatrix.getSize() && column < currentMatrix.getSize()) {
+					if (updateSelection) {
+						value[row][column] = currentMatrix.getValueAt(row, column);
 					}
 
-					if (row == column && !enableDiagonal) 
-                                        {
+					if (row == column && !enableDiagonal) {
 						buttons[row][column].setBackground(notSelectableColor);
-						buttons[row][column]
-								.setText("<html><font color = white>0</font/></html>");
+						buttons[row][column].setText("<html><font color = white>0</font/></html>");
 					} 
-                                        else 
-                                        {
+                    else {
 						buttons[row][column].setEnabled(true);
-						buttons[row][column]
-								.setBackground(value[row][column] == 0 ? unselectedColor
-										: selectedColor);
-						if (value[row][column] == Integer.MIN_VALUE) 
-                                                {
-							buttons[row][column]
-									.setText("<html>&infin;</html>");
+						buttons[row][column].setBackground(value[row][column] == 0 ? unselectedColor : selectedColor);
+						if (value[row][column] == Integer.MIN_VALUE) {
+							buttons[row][column].setText("<html>&infin;</html>");
 							buttons[row][column].setBackground(unselectedColor);
 						} 
-                                                else if (value[row][column] > 99) 
-                                                {
+                        else if (value[row][column] > 99) {
 							buttons[row][column].setText("<html>##</html>");
 							buttons[row][column].setBackground(selectedColor);
-
 						}
-                                                else 
-                                                {
-							buttons[row][column].setText("<html>"
-									+ value[row][column] + "</html>");
+                        else {
+							buttons[row][column].setText("<html>" + value[row][column] + "</html>");
 						}
 					}
 				}
-                                else 
-                                {
+                else {
 					buttons[row][column].setEnabled(false);
 					buttons[row][column].setBackground(disabledColor);
 					buttons[row][column].setText("<html></html>");
 				}
 
-				boolean enable = row != column
-						&& column < currentMatrix.getSize()
-						&& row < currentMatrix.getSize();
-
+				boolean enable = row != column && column < currentMatrix.getSize() && row < currentMatrix.getSize();
 				buttons[row][column].setEnabled(enable);
 			}
 		}
 	}
 
-	public void updateWith(Matrix matrix, boolean updateSelection) 
-        {
-		if (matrix == null) 
-                {
-			throw new IllegalArgumentException(
-					"expected: matrix != null, actual: " + matrix);
+	public void updateWith(Matrix matrix, boolean updateSelection) {
+		if (matrix == null) {
+			throw new IllegalArgumentException("expected: matrix != null, actual: " + matrix);
 		}
 
 		currentMatrix = matrix;
@@ -187,14 +145,12 @@ public class MatrixPanel extends JPanel
 	}
 
 	@Override
-	public Dimension getSize() 
-        {
+	public Dimension getSize() {
 		return new Dimension(305, 305);
 	}
 
 	@Override
-	public Dimension getMaximumSize() 
-        {
+	public Dimension getMaximumSize() {
 		return getSize();
 	}
 
@@ -210,23 +166,17 @@ public class MatrixPanel extends JPanel
 		return getSize();
 	}
 
-	public Matrix getCurrentMatrix() 
-        {
+	public Matrix getCurrentMatrix() {
+		
 		int dimension = 0;
-		for (int i = 0; i < buttons.length
-				&& buttons[i][i].getBackground() == notSelectableColor; dimension = ++i) 
-                {
-		}
+		for (int i = 0; i < buttons.length && buttons[i][i].getBackground() == notSelectableColor; dimension = ++i)	{}
 
 		Matrix currentMatrix = new Matrix(dimension);
-		for (int row = 0; row < dimension; row++) 
-                {
-			for (int column = 0; column < dimension; column++) 
-                        {
+		for (int row = 0; row < dimension; row++) {
+			for (int column = 0; column < dimension; column++) {
 				currentMatrix.setValueAt(row, column, value[row][column]);
 			}
 		}
-
 		return currentMatrix;
 	}
 

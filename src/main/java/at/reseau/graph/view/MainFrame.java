@@ -96,12 +96,16 @@ public class MainFrame extends JFrame {
 		sizeSlider.addChangeListener(new ChangeListener() 
                 {
 			public void stateChanged(ChangeEvent e) {
-				Matrix input = matrixPanel.getCurrentMatrix();
+				
+				Matrix input = new Matrix(sizeSlider.getValue()-1);
+				matrixPanel.updateWith(new Matrix(sizeSlider.getValue()-1), false);
+				input = matrixPanel.getCurrentMatrix();
+				
 				PathMatrix path = new PathMatrix(input);
 				DistanceMatrix distance = new DistanceMatrix(input);
-				matrixPanel
-						.updateWith(new Matrix(sizeSlider.getValue()), false);
-				graphPanel.updateWith(input);
+				
+				
+				graphPanel.updateWith(matrixPanel.getCurrentMatrix());
 				pathPanel.updateWith(path, true);
 				distancePanel.updateWith(distance, true);
 			}
@@ -114,7 +118,10 @@ public class MainFrame extends JFrame {
                 {
 			public void actionPerformed(ActionEvent e) 
                         {
-				Matrix input = matrixPanel.getCurrentMatrix();
+				Matrix input = new Matrix(sizeSlider.getValue()-1);
+				matrixPanel.updateWith(new Matrix(sizeSlider.getValue()-1), false);
+				input = matrixPanel.getCurrentMatrix();
+				
 				PathMatrix path = new PathMatrix(input);
 				DistanceMatrix distance = new DistanceMatrix(input);
 				
