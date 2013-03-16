@@ -38,7 +38,7 @@ public class MainFrame extends JFrame {
 	private static final long serialVersionUID = -8933400712100861899L;
 
 	private final static String APPLICATION_TITLE = "xGRAPH";
-	private final static String appInfo = "<html><font size = 4>xGRAPH 1.0</font><br><br><font size = 2><font size = 2>Erstellt am: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10.04.2011<br><font size = 2><font size = 2>Letztes Update:&nbsp;&nbsp;16.03.2013<br><br>Autor: Georg Koller</html>";
+	private final static String appInfo = "<html><font size = 4>xGRAPH 1.0</font><br><br><font size = 2><font size = 2>Erstellt am: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10.04.2012<br><font size = 2><font size = 2>Letztes Update:&nbsp;&nbsp;16.03.2013<br><br>Autor: Georg Koller</html>";
 
 	private MatrixPanel matrixPanel;
 	private MatrixPanel distancePanel;
