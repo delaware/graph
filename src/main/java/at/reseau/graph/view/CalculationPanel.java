@@ -41,40 +41,40 @@ public class CalculationPanel extends JPanel {
 		String text = "<font size =3 face=Fixedsys>";
                 //text += "Noch keine Ausgabe ;)";
  
+		AdjacencyMatrix adjacency = new AdjacencyMatrix(matrix);
 		PathMatrix path = new PathMatrix(matrix);
 		DistanceMatrix distance = new DistanceMatrix(matrix);
-		AdjacencyMatrix adjacency = new AdjacencyMatrix(matrix);
 		
 		text += "<p><b>KOMPONENTEN:</b><br>";
 		text += "Anzahl: " + path.getComponents() + "<br>";
-		text += "<p>";
+		text += "</p>";
 		
 		text += "<p><b>RADIUS:</b><br>";
 		text += "Anzahl: " + distance.getRadius() + "<br>";
-		text += "<p>";
+		text += "</p>";
 		
 		text += "<p><b>DURCHMESSER:</b><br>";
 		text += "Anzahl: " + distance.getDiameter() + "<br>";
-		text += "<p>";
+		text += "</p>";
 		
 		text += "<p><b>EXZENTRITÄTEN:</b><br>";
 		ArrayList<Integer> eccentricity = distance.getEccentricity();
 		for(int i = 0; i < eccentricity.size(); i++) {
 			text += "Knoten " + (i + 1) + ": " + eccentricity.get(i) + "<br>";
 		}
-		text += "<p>";
+		text += "</p>";
 		
 		text += "<p><b>KNOTENGRADE:</b><br>";
 		ArrayList<Integer> degrees = adjacency.getDegreeList();
 		for(int i = 0; i < degrees.size(); i++) {
 			text += "Knoten " + (i + 1) + ": " + degrees.get(i) + "<br>";
 		}
-		text += "<p>";
+		text += "</p>";
 		
 		text += "<p><b>Artikulation:</b><br>";
 		ArrayList<Integer> articulations = path.getArticulations(adjacency);
 		text += "Anzahl: " + articulations.size() + "<br>";
-		text += "Knoten: " + articulations + "<p>";
+		text += "Knoten: " + articulations + "</p>";
 		
 		text += "<p>" + "<b>BRÜCKEN:</b><br>" + "Anzahl: "
 				+ path.getBrigdes(adjacency).size() + "<br>";

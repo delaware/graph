@@ -4,10 +4,6 @@ import java.io.IOException;
 import javax.swing.SwingUtilities;
 import at.reseau.graph.view.MainFrame;
 
-/**
- * Hello world!
- *
- */
 public class App 
 {
     public static void main( String[] args )

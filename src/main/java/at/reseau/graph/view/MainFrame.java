@@ -37,8 +37,8 @@ import at.reseau.graph.util.FileHelper;
 public class MainFrame extends JFrame {
 	private static final long serialVersionUID = -8933400712100861899L;
 
-	private final static String APPLICATION_TITLE = "GRAPHIX 5";
-	private final static String appInfo = "<html><font size = 4>GRAPHIX Version 5</font><br><br><font size = 2><font size = 2>Erstellt am: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;05.12.2011<br><font size = 2><font size = 2>Letztes Update: &nbsp;25.01.2012<br><br>Autor: Gregor Messner<br>Copyleft  2011-2012<br><br></html>";
+	private final static String APPLICATION_TITLE = "xGRAPH";
+	private final static String appInfo = "<html><font size = 4>xGRAPH 1.0</font><br><br><font size = 2><font size = 2>Erstellt am: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10.04.2011<br><font size = 2><font size = 2>Letztes Update:&nbsp;&nbsp;16.03.2013<br><br>Autor: Georg Koller</html>";
 
 	private MatrixPanel matrixPanel;
 	private MatrixPanel distancePanel;
@@ -50,7 +50,7 @@ public class MainFrame extends JFrame {
 
 	public MainFrame() throws IOException 
         {
-		setSize(950, 740);
+		setSize(1200, 850);
 
 		setTitle(APPLICATION_TITLE);
 		setLocationByPlatform(true);
@@ -97,8 +97,8 @@ public class MainFrame extends JFrame {
                 {
 			public void stateChanged(ChangeEvent e) {
 				
-				Matrix input = new Matrix(sizeSlider.getValue()-1);
-				matrixPanel.updateWith(new Matrix(sizeSlider.getValue()-1), false);
+				Matrix input = new Matrix(sizeSlider.getValue());
+				matrixPanel.updateWith(new Matrix(sizeSlider.getValue()), false);
 				input = matrixPanel.getCurrentMatrix();
 				
 				PathMatrix path = new PathMatrix(input);
@@ -118,8 +118,8 @@ public class MainFrame extends JFrame {
                 {
 			public void actionPerformed(ActionEvent e) 
                         {
-				Matrix input = new Matrix(sizeSlider.getValue()-1);
-				matrixPanel.updateWith(new Matrix(sizeSlider.getValue()-1), false);
+				Matrix input = new Matrix(sizeSlider.getValue());
+				matrixPanel.updateWith(new Matrix(sizeSlider.getValue()), false);
 				input = matrixPanel.getCurrentMatrix();
 				
 				PathMatrix path = new PathMatrix(input);

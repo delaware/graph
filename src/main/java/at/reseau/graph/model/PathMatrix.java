@@ -115,6 +115,5 @@ public class PathMatrix extends Matrix {
 		}
 		return bridges;
 	}
-	
 
 }
