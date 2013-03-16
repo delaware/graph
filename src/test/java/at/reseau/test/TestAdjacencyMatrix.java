@@ -31,7 +31,8 @@ public class TestAdjacencyMatrix {
 	
 	@Test
 	public void test() {
-
+		adjacency.random();
+		System.out.println(adjacency.getDegreeList());
 	}
 	
 }

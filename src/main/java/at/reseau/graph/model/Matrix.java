@@ -10,7 +10,7 @@ public class Matrix implements BaseMatrix, Serializable{
 	protected int[][] values;
 	// default graph size
 	public int size;
-	public static int DEFAULT_SIZE = 6;
+	public static int DEFAULT_SIZE = 10;
 	
 	public Matrix() {
 		// initialize matrix
@@ -67,6 +67,15 @@ public class Matrix implements BaseMatrix, Serializable{
 			}
 		}		
 	}
+	
+    public void random() {
+		for (int i = 0; i < size; i++)
+            for (int j = 0; j < size; j++) {
+            	int r = (Math.random()<0.8)?0:1;
+                this.setValueAt(i, j, r);
+                this.setValueAt(j, i, r);
+            }
+    }
 
 	public Matrix multiply(Matrix m, Matrix n) {
 		int sum = 0;

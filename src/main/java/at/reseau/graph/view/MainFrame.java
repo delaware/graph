@@ -56,15 +56,11 @@ public class MainFrame extends JFrame {
 		setLocationByPlatform(true);
 		setDefaultLookAndFeelDecorated(true);
 
-		try 
-                {
-			Image icon = Toolkit.getDefaultToolkit().getImage(
-					File.class.getResource("/icons/app.png"));
+		try {
+			Image icon = Toolkit.getDefaultToolkit().getImage(File.class.getResource("/icons/app.png"));
 			setIconImage(icon);
 		} 
-                catch (Exception e) 
-                {
-		}
+        catch (Exception e) {		}
 
 		setLayout(new MigLayout("filly", "[][grow]"));
 		initPanels();
@@ -72,7 +68,7 @@ public class MainFrame extends JFrame {
                 {
 			public void windowClosing(WindowEvent evt) 
                         {
-				dialogBeenden();
+				closeWindow();
 			}
 		});
 
@@ -95,8 +91,8 @@ public class MainFrame extends JFrame {
 		sizeSlider.setSnapToTicks(true);
 		sizeSlider.addChangeListener(new ChangeListener() 
                 {
-			public void stateChanged(ChangeEvent e) {
-				
+			public void stateChanged(ChangeEvent e)
+			{	
 				Matrix input = new Matrix(sizeSlider.getValue());
 				matrixPanel.updateWith(new Matrix(sizeSlider.getValue()), false);
 				input = matrixPanel.getCurrentMatrix();
@@ -112,12 +108,10 @@ public class MainFrame extends JFrame {
 		});
 		calculationToolbar.add(sizeSlider, "w 288, h 60");
 
-		JButton calcButton = new JButton(
-				"<html><center><font size = 4>Berechnen</font><br><font size = 2>aktualisieren</font></html>");
-		calcButton.addActionListener(new ActionListener() 
-                {
+		JButton calcButton = new JButton(new ImageIcon(getClass().getResource("/icons/calculate.png")));
+		calcButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
-                        {
+			{
 				Matrix input = new Matrix(sizeSlider.getValue());
 				matrixPanel.updateWith(new Matrix(sizeSlider.getValue()), false);
 				input = matrixPanel.getCurrentMatrix();
@@ -130,50 +124,33 @@ public class MainFrame extends JFrame {
 				calculationPanel.updateWith(input);
 				monitoringPanel.updateWith(input);
 				graphPanel.updateWith(input);
-
-				//Automatisches Speichern bei jeder neuen Berechnung - Berger Logging :-D
-//				try {
-//					FileHelper.save(new File("d:\\" + System.nanoTime()
-//							+ ".matrix"), matrixPanel.getCurrentMatrix());
-//				} catch (FileNotFoundException e1) {
-//					e1.printStackTrace();
-//				} catch (IOException e1) {
-//					e1.printStackTrace();
-//				}
 			}
 		});
-		calculationToolbar.add(calcButton, "gapx 22, w 100");
+		calculationToolbar.add(calcButton, "gapx 20");
 
-		JButton refreshButton = new JButton(
-				"<html><center><font size = 4>Rücksetzen<br><font size = 2>löschen</font></html>");
+		JButton refreshButton = new JButton(new ImageIcon(getClass().getResource("/icons/renew.png")));
 		refreshButton.setOpaque(false);
-		refreshButton.addActionListener(new ActionListener() 
-                {
+		refreshButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Matrix blank = new Matrix();
-				
-				PathMatrix path = new PathMatrix(blank.getSize());
-				DistanceMatrix distance = new DistanceMatrix(blank.getSize());
-				
-				matrixPanel.updateWith(blank, true);
-				sizeSlider.setValue(blank.getSize());
-				distancePanel.updateWith(distance, true);
-				pathPanel.updateWith(path, true);
-				graphPanel.updateWith(blank);
-				calculationPanel.clear();
+				actionRefreshButton();
 			}
 		});
-		calculationToolbar.add(refreshButton, ", gapx 5, w 100");
+		calculationToolbar.add(refreshButton, ", gapx 2");
 
-		JButton exitButton = new JButton(new ImageIcon(getClass().getResource(
-				"/icons/exit2.png")));
+		JButton randomButton = new JButton(new ImageIcon(getClass().getResource("/icons/random.png")));
+		randomButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				actionRandomButton();
+			}
+        });
+		calculationToolbar.add(randomButton, "gapx 2");
+		
+		JButton exitButton = new JButton(new ImageIcon(getClass().getResource("/icons/exit.png")));
 		exitButton.setOpaque(false);
-		calculationToolbar.add(exitButton, "gapx 5");
-		exitButton.addActionListener(new ActionListener() 
-                {
-			public void actionPerformed(ActionEvent arg0) 
-                        {
-				dialogBeenden();
+		calculationToolbar.add(exitButton, "gapx 2");
+		exitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				closeWindow();
 			}
 		});
 
@@ -183,10 +160,8 @@ public class MainFrame extends JFrame {
 		label.setForeground(new Color(190, 190, 190));
 		calculationToolbar.add(label, "gapx 35");
 
-		JButton openButton = new JButton(new ImageIcon(getClass().getResource(
-				"/icons/open.png")));
-		openButton.addActionListener(new ActionListener() 
-                {
+		JButton openButton = new JButton(new ImageIcon(getClass().getResource("/icons/open.png")));
+		openButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
                         {
 				JFileChooser dialog = new JFileChooser(new File("."));
@@ -200,8 +175,11 @@ public class MainFrame extends JFrame {
 						sizeSlider.setValue(loaded.getSize());
 
 						matrixPanel.updateWith(loaded, true);
-						distancePanel.updateWith(new Matrix(0), true);
-						pathPanel.updateWith(new Matrix(0), true);
+						distancePanel.updateWith(loaded, true);
+						pathPanel.updateWith(loaded, true);
+						calculationPanel.updateWith(loaded);
+						monitoringPanel.updateWith(loaded);
+						graphPanel.updateWith(loaded);
 					} 
                                         catch (FileNotFoundException e) 
                                         {
@@ -258,7 +236,7 @@ public class MainFrame extends JFrame {
 		calculationToolbar.add(saveButton, "gapx 2");
 
 		JButton infoButton = new JButton(new ImageIcon(getClass().getResource(
-				"/icons/info2.png")));
+				"/icons/info.png")));
 		infoButton.setOpaque(false);
 		calculationToolbar.add(infoButton, "gapx 2");
 		infoButton.addActionListener(new ActionListener() 
@@ -268,7 +246,7 @@ public class MainFrame extends JFrame {
 				getApplicationInfo();
 			}
 		});
-
+		
 		JTabbedPane tabbedPane = new JTabbedPane();
 		JComponent panel1 = calculationPanel = new CalculationPanel();
 		JComponent panel2 = monitoringPanel = new MonitoringPanel();
@@ -309,7 +287,7 @@ public class MainFrame extends JFrame {
 				JOptionPane.PLAIN_MESSAGE);
 	}
 
-	private void dialogBeenden() 
+	private void closeWindow() 
         {
 		String msg = "Möchten Sie " + APPLICATION_TITLE + " beenden?";
 		int returnVal = JOptionPane.showConfirmDialog(this, msg,
@@ -318,6 +296,35 @@ public class MainFrame extends JFrame {
                 {
 			dispose();
 		}
+	}
+	
+	private void actionRandomButton() {
+		Matrix input = new Matrix(sizeSlider.getValue());
+		input.random();
+		matrixPanel.updateWith(input, true);
+		
+		PathMatrix path = new PathMatrix(input);
+		DistanceMatrix distance = new DistanceMatrix(input);
+		
+		distancePanel.updateWith(distance, true);
+		pathPanel.updateWith(path, true);
+		calculationPanel.updateWith(input);
+		monitoringPanel.updateWith(input);
+		graphPanel.updateWith(input);
+	}
+	
+	private void actionRefreshButton() {
+		Matrix blank = new Matrix(sizeSlider.getValue());
+		
+		PathMatrix path = new PathMatrix(blank.getSize());
+		DistanceMatrix distance = new DistanceMatrix(blank.getSize());
+		
+		matrixPanel.updateWith(blank, true);
+		sizeSlider.setValue(blank.getSize());
+		distancePanel.updateWith(distance, true);
+		pathPanel.updateWith(path, true);
+		graphPanel.updateWith(blank);
+		calculationPanel.clear();
 	}
 
 }

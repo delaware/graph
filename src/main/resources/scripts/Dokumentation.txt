@@ -1,5 +1,5 @@
 <html>
-<font family="Arial">
+<font size =3 face=Fixedsys>
 <b>Inhalt:</b>
 <br>
 Berechnung und Darstellung von Teilbereichen der Graphentheorie.<p>
