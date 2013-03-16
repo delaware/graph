@@ -66,6 +66,7 @@ public class MainFrame extends JFrame {
 		initPanels();
 		addWindowListener(new WindowAdapter() 
                 {
+			@Override
 			public void windowClosing(WindowEvent evt) 
                         {
 				closeWindow();
@@ -77,7 +78,7 @@ public class MainFrame extends JFrame {
 	private void initPanels() 
         {
 		JToolBar calculationToolbar = new JToolBar("Toolbar",
-				JToolBar.HORIZONTAL);
+				SwingConstants.HORIZONTAL);
 		calculationToolbar.setLayout(new MigLayout());
 		calculationToolbar.setFloatable(true);
 
@@ -91,6 +92,7 @@ public class MainFrame extends JFrame {
 		sizeSlider.setSnapToTicks(true);
 		sizeSlider.addChangeListener(new ChangeListener() 
                 {
+			@Override
 			public void stateChanged(ChangeEvent e)
 			{	
 				Matrix input = new Matrix(sizeSlider.getValue());
@@ -101,15 +103,16 @@ public class MainFrame extends JFrame {
 				DistanceMatrix distance = new DistanceMatrix(input);
 				
 				
-				graphPanel.updateWith(matrixPanel.getCurrentMatrix());
 				pathPanel.updateWith(path, true);
 				distancePanel.updateWith(distance, true);
+				graphPanel.updateWith(input);
 			}
 		});
-		calculationToolbar.add(sizeSlider, "w 288, h 60");
+		calculationToolbar.add(sizeSlider, "w 295, h 60");
 
 		JButton calcButton = new JButton(new ImageIcon(getClass().getResource("/icons/calculate.png")));
 		calcButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
 				Matrix input = new Matrix(sizeSlider.getValue());
@@ -131,6 +134,7 @@ public class MainFrame extends JFrame {
 		JButton refreshButton = new JButton(new ImageIcon(getClass().getResource("/icons/renew.png")));
 		refreshButton.setOpaque(false);
 		refreshButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				actionRefreshButton();
 			}
@@ -139,6 +143,7 @@ public class MainFrame extends JFrame {
 
 		JButton randomButton = new JButton(new ImageIcon(getClass().getResource("/icons/random.png")));
 		randomButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				actionRandomButton();
 			}
@@ -149,6 +154,7 @@ public class MainFrame extends JFrame {
 		exitButton.setOpaque(false);
 		calculationToolbar.add(exitButton, "gapx 2");
 		exitButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				closeWindow();
 			}
@@ -162,6 +168,7 @@ public class MainFrame extends JFrame {
 
 		JButton openButton = new JButton(new ImageIcon(getClass().getResource("/icons/open.png")));
 		openButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) 
                         {
 				JFileChooser dialog = new JFileChooser(new File("."));
@@ -174,28 +181,26 @@ public class MainFrame extends JFrame {
 								.getSelectedFile());
 						sizeSlider.setValue(loaded.getSize());
 
+						PathMatrix path = new PathMatrix(loaded);
+						DistanceMatrix distance = new DistanceMatrix(loaded);
+						
 						matrixPanel.updateWith(loaded, true);
-						distancePanel.updateWith(loaded, true);
-						pathPanel.updateWith(loaded, true);
+						distancePanel.updateWith(distance, true);
+						pathPanel.updateWith(path, true);
 						calculationPanel.updateWith(loaded);
 						monitoringPanel.updateWith(loaded);
 						graphPanel.updateWith(loaded);
 					} 
-                                        catch (FileNotFoundException e) 
-                                        {
-						JOptionPane
-								.showMessageDialog(null,
+                    catch (FileNotFoundException e) {
+						JOptionPane.showMessageDialog(null,
 										"Bitte wählen Sie eine existierende Datei aus.");
 					} 
-                                        catch (IOException e) 
-                                        {
+                    catch (IOException e) {
 						JOptionPane.showMessageDialog(null,
 								"Fehler beim Einlesen der Matrize.");
 					}
-                                        catch (ClassNotFoundException e) 
-                                        {
-						JOptionPane
-								.showMessageDialog(null,
+                    catch (ClassNotFoundException e)  {
+						JOptionPane.showMessageDialog(null,
 										"Unbekannter Inhalt. Datei konnte nicht verarbeitet werden.");
 					}
 				}
@@ -203,10 +208,9 @@ public class MainFrame extends JFrame {
 		});
 		calculationToolbar.add(openButton, "gapx 20");
 
-		JButton saveButton = new JButton(new ImageIcon(getClass().getResource(
-				"/icons/save.png")));
-		saveButton.addActionListener(new ActionListener() 
-                {
+		JButton saveButton = new JButton(new ImageIcon(getClass().getResource("/icons/save.png")));
+		saveButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) 
                         {
 				JFileChooser dialog = new JFileChooser(new File("."));
@@ -235,14 +239,12 @@ public class MainFrame extends JFrame {
 		});
 		calculationToolbar.add(saveButton, "gapx 2");
 
-		JButton infoButton = new JButton(new ImageIcon(getClass().getResource(
-				"/icons/info.png")));
+		JButton infoButton = new JButton(new ImageIcon(getClass().getResource("/icons/info.png")));
 		infoButton.setOpaque(false);
 		calculationToolbar.add(infoButton, "gapx 2");
-		infoButton.addActionListener(new ActionListener() 
-                {
-			public void actionPerformed(ActionEvent arg0) 
-                        {
+		infoButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
 				getApplicationInfo();
 			}
 		});
@@ -264,18 +266,17 @@ public class MainFrame extends JFrame {
 		distance.populate(blank);
 
 		JPanel outputPanels = new JPanel(new MigLayout("wrap 2"));
-		outputPanels.add(matrixPanel = new MatrixPanel("AdjacencyMatrix",
-				new Matrix(), true, false));
+		outputPanels.add(matrixPanel = new MatrixPanel("Adjazenz-Matrix", new Matrix(), true, false));
 		matrixPanel.setSelectedColor(new Color(0, 255, 0));
 		outputPanels.add(graphPanel = new GraphPanel("Graph"), "w 305, h 305");
 		graphPanel.updateWith(new Matrix());
 
-		outputPanels.add(pathPanel = new MatrixPanel("PathMatrix",
-				path, false, true));
+		outputPanels.add(pathPanel = new MatrixPanel("Weg-Matrix", path, false, true));
 		pathPanel.setSelectedColor(new Color(255, 255, 51));
-		outputPanels.add(distancePanel = new MatrixPanel("DistanceMatrix",
-				distance, false, true));
+		outputPanels.add(distancePanel = new MatrixPanel("Distanz-Matrix", distance, false, true));
 		distancePanel.setSelectedColor(new Color(255, 255, 51));
+		
+		actionRefreshButton();
 
 		add(outputPanels, "aligny top");
 		add(tabbedPane, "grow");
@@ -302,14 +303,15 @@ public class MainFrame extends JFrame {
 		Matrix input = new Matrix(sizeSlider.getValue());
 		input.random();
 		matrixPanel.updateWith(input, true);
+		input = matrixPanel.getCurrentMatrix();
 		
 		PathMatrix path = new PathMatrix(input);
 		DistanceMatrix distance = new DistanceMatrix(input);
 		
 		distancePanel.updateWith(distance, true);
 		pathPanel.updateWith(path, true);
-		calculationPanel.updateWith(input);
 		monitoringPanel.updateWith(input);
+		calculationPanel.updateWith(input);
 		graphPanel.updateWith(input);
 	}
 	
@@ -323,8 +325,8 @@ public class MainFrame extends JFrame {
 		sizeSlider.setValue(blank.getSize());
 		distancePanel.updateWith(distance, true);
 		pathPanel.updateWith(path, true);
-		graphPanel.updateWith(blank);
 		calculationPanel.clear();
+		graphPanel.updateWith(blank);
 	}
 
 }

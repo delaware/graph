@@ -56,6 +56,7 @@ public class MatrixPanel extends JPanel
 			for (int column = 0; column < buttons[row].length; column++) {
 				add(buttons[row][column] = new JButton());
 				buttons[row][column].setBorder(new EtchedBorder());
+				buttons[row][column].setOpaque(true);
 
 				final int r = row;
 				final int c = column;
@@ -63,6 +64,7 @@ public class MatrixPanel extends JPanel
 				if (editable) {
 					buttons[row][column].addActionListener(new ActionListener() 
                            	{
+								@Override
 								public void actionPerformed(ActionEvent e) {
 									value[r][c] = (value[r][c] + 1) % 2;
 									value[c][r] = (value[c][r] + 1) % 2;

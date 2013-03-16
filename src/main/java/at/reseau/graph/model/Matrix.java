@@ -28,6 +28,7 @@ public class Matrix implements BaseMatrix, Serializable{
 		init();
 	}
 	
+	@Override
 	public void init() {
 		for(int i=0;i<size;i++) {
 			for(int j=0;j<size;j++) {
@@ -60,6 +61,7 @@ public class Matrix implements BaseMatrix, Serializable{
 		values[row][column] = value;
 	}
 
+	@Override
 	public void populate(Matrix m) {
 		for(int i=0;i<size;i++) {
 			for(int j=0;j<size;j++) {

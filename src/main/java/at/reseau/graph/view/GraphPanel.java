@@ -64,6 +64,7 @@ public class GraphPanel extends JPanel
 
 		Transformer<Integer, Paint> vertexPaint = new Transformer<Integer, Paint>() 
                 {
+			@Override
 			public Paint transform(Integer i) 
                         {
 				return Color.yellow;

@@ -10,6 +10,7 @@ public class App
     {
         
         SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					new  MainFrame().setVisible(true);

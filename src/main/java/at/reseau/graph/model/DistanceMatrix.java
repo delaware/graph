@@ -18,7 +18,11 @@ public class DistanceMatrix extends Matrix {
 		
 		for(int i=0;i<size;i++) {
 			for(int j=0;j<size;j++) {
-				if(m.getValueAt(i, j) == 1) setValueAt(i, j, m.getValueAt(i, j));
+				if(i != j) {
+					if(m.getValueAt(i, j) == 1) setValueAt(i, j, m.getValueAt(i, j));
+				} else {
+					setValueAt(i, i, 0);
+				}
 			}
 		}
 		
