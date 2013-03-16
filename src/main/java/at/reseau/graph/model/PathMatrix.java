@@ -1,6 +1,8 @@
 package at.reseau.graph.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Vector;
 
 public class PathMatrix extends Matrix {
 
@@ -56,16 +58,31 @@ public class PathMatrix extends Matrix {
 	}
 	
 	public int getComponents() {
-		ArrayList<Integer> components = new ArrayList<Integer>();
+		Vector<Integer> vector = new Vector<Integer>();
+		int components = 1;
 		
-		for(int i=0;i<size;i++) {
-			int checksum = 0;
-			for(int j=0;j<size;j++) {
-				if(getValueAt(i, j) == 1) checksum += Math.pow(2, j);
-			}
-			if(!components.contains(checksum)) components.add(checksum);
+		for(int column=0;column<size;column++) {
+			vector.add(getValueAt(0, column));
 		}
-		return components.size();
+		
+		if(Collections.min(vector) == 0) {
+			for(int row=0;row<size;row++) {
+				for(int column=0;column<size;column++) {
+					if(vector.get(column)==0) {
+						row = column;
+						components++;
+						for(int i=column;i<size;i++) {
+							if(getValueAt(row, i)==1) {
+								vector.set(i,components);
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		return Collections.max(vector);
+		
 	}
 	
 	public ArrayList<Integer> getArticulations(AdjacencyMatrix m) {

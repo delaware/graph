@@ -26,4 +26,5 @@ public class UtilMatrix {
 			return n*exp(n,e-1);
 		}
 	}
+
 }
