@@ -1,17 +1,15 @@
 apply plugin: 'java'
 apply plugin: 'application'
+apply plugin: 'maven2Gradle'
 
 version = "1.0"
 description = "Georg Koller\'s GraphTool"
-mainClassName = "at.reseau.graph.App"
+mainClassName = "at.reseau.graph.Main"
 
 compileJava.options.encoding = 'UTF-8'
 
 repositories {
 	mavenCentral()
-	maven {
-    	url "http://mavenhub.com/c"
-    }
 }
 
 dependencies {

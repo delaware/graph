@@ -25,9 +25,9 @@ public class GraphPanel extends JPanel
 
 	private static final long serialVersionUID = -2707712944901661771L;
 
-	static Graph<Integer, String> graph;
-	static VisualizationViewer<Integer, String> vv;
-	static CircleLayout<Integer, String> layout;
+	static Graph<Integer, Integer> graph;
+	static VisualizationViewer<Integer, Integer> vv;
+	static CircleLayout<Integer, Integer> layout;
 
 	public GraphPanel(String title) 
         {
@@ -45,39 +45,34 @@ public class GraphPanel extends JPanel
         {
 		removeAll();
 
-		graph = new UndirectedSparseMultigraph<Integer, String>();
+		graph = new UndirectedSparseMultigraph<Integer, Integer>();
 
 		for (int i = 1; i <= matrix.getSize(); i++) {
 			graph.addVertex(i);
 		}
 
 		int i = 0;
-		for (ArrayList<Integer> selektierteKanten : matrix.selectEdge()) 
-                {
-			graph.addEdge("Edge" + i, selektierteKanten);
+		for (ArrayList<Integer> edges : matrix.selectEdge()) {
+			graph.addEdge(i, edges);
 			i++;
 		}
-
-		layout = new CircleLayout<Integer, String>(graph);
+		layout = new CircleLayout<Integer, Integer>(graph);
 		layout.setSize(new Dimension(300, 260));
-		vv = new VisualizationViewer<Integer, String>(layout);
+		vv = new VisualizationViewer<Integer, Integer>(layout);
 
 		Transformer<Integer, Paint> vertexPaint = new Transformer<Integer, Paint>() 
-                {
+            {
 			@Override
-			public Paint transform(Integer i) 
-                        {
-				return Color.yellow;
+			public Paint transform(Integer i) {
+				return Color.YELLOW;
 			}
 		};
 
+		vv.getRenderContext().setEdgeShapeTransformer(new EdgeShape.Line<Integer, Integer>());
+		vv.getRenderContext().setVertexDrawPaintTransformer(vertexPaint);
 		vv.getRenderContext().setVertexFillPaintTransformer(vertexPaint);
-		vv.getRenderContext().setVertexLabelTransformer(
-				new ToStringLabeller<Integer>());
 		vv.getRenderer().getVertexLabelRenderer().setPosition(Position.CNTR);
-		vv.getRenderContext().setEdgeShapeTransformer(	new
-				EdgeShape.Line<Integer, String>());
-
+		vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller<Integer>());
 		add(vv, BorderLayout.CENTER);
 	}
 }

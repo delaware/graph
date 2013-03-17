@@ -308,11 +308,11 @@ public class MainFrame extends JFrame {
 		PathMatrix path = new PathMatrix(input);
 		DistanceMatrix distance = new DistanceMatrix(input);
 		
+		graphPanel.updateWith(input);
 		distancePanel.updateWith(distance, true);
 		pathPanel.updateWith(path, true);
 		monitoringPanel.updateWith(input);
 		calculationPanel.updateWith(input);
-		graphPanel.updateWith(input);
 	}
 	
 	private void actionRefreshButton() {
@@ -321,12 +321,12 @@ public class MainFrame extends JFrame {
 		PathMatrix path = new PathMatrix(blank.getSize());
 		DistanceMatrix distance = new DistanceMatrix(blank.getSize());
 		
-		matrixPanel.updateWith(blank, true);
+		graphPanel.updateWith(blank);
 		sizeSlider.setValue(blank.getSize());
+		matrixPanel.updateWith(blank, true);
 		distancePanel.updateWith(distance, true);
 		pathPanel.updateWith(path, true);
 		calculationPanel.clear();
-		graphPanel.updateWith(blank);
 	}
 
 }
