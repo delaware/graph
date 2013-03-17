@@ -130,5 +130,4 @@ public class Matrix implements BaseMatrix, Serializable{
 		Collections.sort(nodes);
 		return nodes;
 	}
-	
 }

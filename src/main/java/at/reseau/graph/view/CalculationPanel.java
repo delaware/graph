@@ -49,29 +49,27 @@ public class CalculationPanel extends JPanel {
 		text += "Anzahl: " + path.getComponents() + "<br>";
 		text += "</p>";
 		
-		text += "<p><b>RADIUS:</b><br>";
-		text += "Anzahl: " + distance.getRadius() + "<br>";
+		text += "<p><b>RADIUS: </b>";
+		text += distance.getRadius() + "<br>";
 		text += "</p>";
 		
-		text += "<p><b>DURCHMESSER:</b><br>";
-		text += "Anzahl: " + distance.getDiameter() + "<br>";
+		text += "<p><b>DURCHMESSER: </b>";
+		text += distance.getDiameter() + "<br>";
 		text += "</p>";
 		
-		text += "<p><b>EXZENTRITÄTEN:</b><br>";
+		text += "<p><b>EXZENTRITÄTEN <font color=\"red\">(ZENTRUM)</font>:</b><br>";
 		ArrayList<Integer> eccentricity = distance.getEccentricity();
 		for(int i = 0; i < eccentricity.size(); i++) {
-			text += "Knoten " + (i + 1) + ": " + eccentricity.get(i) + "<br>";
+				if(distance.getRadius() == eccentricity.get(i) && eccentricity.get(i) >= 1) {
+					text += "<font color=\"red\">Knoten " + (i + 1) + ": " + eccentricity.get(i) + "</font>";
+				} else {
+					text += "Knoten " + (i + 1) + ": " + eccentricity.get(i);	
+				}
+			text += "<br>";
 		}
 		text += "</p>";
 		
-		text += "<p><b>KNOTENGRADE:</b><br>";
-		ArrayList<Integer> degrees = adjacency.getDegreeList();
-		for(int i = 0; i < degrees.size(); i++) {
-			text += "Knoten " + (i + 1) + ": " + degrees.get(i) + "<br>";
-		}
-		text += "</p>";
-		
-		text += "<p><b>Artikulation:</b><br>";
+		text += "<p><b>ARTIKULATION:</b><br>";
 		ArrayList<Integer> articulations = path.getArticulations(adjacency);
 		text += "Anzahl: " + articulations.size() + "<br>";
 		text += "Knoten: " + articulations + "</p>";
@@ -89,9 +87,16 @@ public class CalculationPanel extends JPanel {
 			for (int i = 1; i < bruecken.size(); i++) {
 				brueckenText += ", " + bruecken.get(i);
 			}
-			brueckenText += " }";
+			brueckenText += " }</p>";
 		}
 		text += brueckenText;
+		
+        if(adjacency.isTree()) {
+        	text += "<p><b><font color=\"green\">Der Graph ist ein BAUM</font></b></p>";
+        }
+        if(adjacency.isForrest()) {
+            text += "<p><b><font color=\"green\">Der Graph ist ein WALD</font></b></p>";
+        }
 		
 		textPane.setText(text);
 		textPane.setCaretPosition(0);

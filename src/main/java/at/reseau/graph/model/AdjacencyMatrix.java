@@ -14,7 +14,9 @@ public class AdjacencyMatrix extends Matrix {
 		super(m.getSize());
 		for(int i=0;i<size;i++) {
 			for(int j=0;j<size;j++) {
-				if(m.getValueAt(i, j) == 1) setValueAt(i, j, m.getValueAt(i, j));
+				if(i != j) {
+					if(m.getValueAt(i, j) == 1) setValueAt(i, j, m.getValueAt(i, j));
+				}
 			}
 		}
 	}
@@ -44,5 +46,42 @@ public class AdjacencyMatrix extends Matrix {
 			degrees.add(getDegree(i));
 		}		
 		return degrees;
+	}
+	
+	public int getNumberOfEdges() {
+		int num = 0;
+
+		for (int row = 0; row < size; row++)  {
+			for (int column = 0; column < size; column++)  {
+				if (values[row][column] == 1) num++;
+			}
+		}
+		return num / 2;
+	}
+	
+	public boolean isTree() {
+		boolean coherently = false; // coherently = zusammenhängend
+		PathMatrix m = new PathMatrix(this);
+		int components = m.getComponents();
+		
+		if(components == 1) coherently = true;
+		
+		if(coherently && (size - getNumberOfEdges()) == 1) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isForrest() {
+		boolean coherently = false; // coherently = zusammenhängend
+		PathMatrix m = new PathMatrix(this);
+		int components = m.getComponents();
+		
+		if(m.getComponents() == 1) coherently = true;
+		
+		if(!coherently && getNumberOfEdges() == (size - components)) {
+			return true;
+		}
+		return false;
 	}
 }

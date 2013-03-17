@@ -50,7 +50,7 @@ public class MainFrame extends JFrame {
 
 	public MainFrame() throws IOException 
         {
-		setSize(1200, 850);
+		setSize(1150, 770);
 
 		setTitle(APPLICATION_TITLE);
 		setLocationByPlatform(true);
@@ -77,13 +77,11 @@ public class MainFrame extends JFrame {
 
 	private void initPanels() 
         {
-		JToolBar calculationToolbar = new JToolBar("Toolbar",
-				SwingConstants.HORIZONTAL);
+		JToolBar calculationToolbar = new JToolBar("Toolbar", SwingConstants.HORIZONTAL);
 		calculationToolbar.setLayout(new MigLayout());
 		calculationToolbar.setFloatable(true);
 
-		sizeSlider = new JSlider(SwingConstants.HORIZONTAL, 3, 15,
-				Matrix.DEFAULT_SIZE);
+		sizeSlider = new JSlider(SwingConstants.HORIZONTAL, 3, 15, Matrix.DEFAULT_SIZE);
 		sizeSlider.setBorder(new TitledBorder("Größe der Matrix"));
 		sizeSlider.setOpaque(false);
 		sizeSlider.setMajorTickSpacing(1);
@@ -106,6 +104,8 @@ public class MainFrame extends JFrame {
 				pathPanel.updateWith(path, true);
 				distancePanel.updateWith(distance, true);
 				graphPanel.updateWith(input);
+				calculationPanel.updateWith(input);
+				monitoringPanel.updateWith(input);
 			}
 		});
 		calculationToolbar.add(sizeSlider, "w 295, h 60");
@@ -124,9 +124,9 @@ public class MainFrame extends JFrame {
 				
 				distancePanel.updateWith(distance, true);
 				pathPanel.updateWith(path, true);
+				graphPanel.updateWith(input);
 				calculationPanel.updateWith(input);
 				monitoringPanel.updateWith(input);
-				graphPanel.updateWith(input);
 			}
 		});
 		calculationToolbar.add(calcButton, "gapx 20");

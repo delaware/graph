@@ -15,7 +15,9 @@ Berechnung und Darstellung von Teilbereichen der Graphentheorie.<p>
 + Zentrum<br>
 + Komponenten<br>
 + Artikulationen<br>
-+ Br&uuml;cken<br><br>
++ Br&uuml;cken<br>
++ B&auml;ume<br>
++ Wald<br><br>
 
 <b>Adjazenzmatrix:</b><br>
 Matrix zur Eingabe von ungerichteten Kanten, welche zur weiteren Berechnung herangezogen werden. Die Diagonale ist auf 0 gesetzt und somit sind Knoten mit Schlingen nicht m&ouml;glich.<p>
@@ -27,7 +29,7 @@ Mittels der JUNG2-Java-Bibliothek wird der in der Adjazenzmatrix eingegebene Gra
 Enth&auml;lt als Werte nur 0 oder 1 und besagt, ob es einen Weg von einem beliebigen Knoten x zu einem beliebigen Knoten y gibt.<p>
 
 <b>Distanzmatrix:</b><br>
-Liefert mir die Information dar&uuml;ber, in wievielen Schritten ein beliebiger Knoten x zu einem beliebigen Knoten y erreicht werden kann.<p>
+Liefert die Information dar&uuml;ber, in wievielen Schritten ein beliebiger Knoten x zu einem beliebigen Knoten y erreicht werden kann.<p>
 
 <b>Exzentrizit&auml;ten:</b><br>
 Ist der jeweils gr&ouml;&szlig;te Wert eines Knoten in der Distanzmatrix und besagt, in wievielen Schritten man vom jeweiligen Knoten maximal braucht um zu einem anderen Knoten zu gelangen.<p>
@@ -42,12 +44,18 @@ Ist die gr&ouml;&szlig;te Exzentrizit&auml;t.<p>
 Sind jene Knoten, welche die kleinste Exzentrizit&auml;t aufweisen.<p>
 
 <b>Komponenten:</b><br>
-Eine Komponente ist ein Teilgraph.<p>
+Eine Komponente ist ein Teilgraph. Diese werden mit Hilfe der Wegmatrix berechnet.<p>
 
 <b>Artikulationen:</b><br>
 Sind Knoten, wo bei Wegnahme eines solchen Knotens der Graph in mehr Komponenten zerf&auml;llt als er vorher Komponenten hatte.<p>
 
 <b>Br&uuml;cken:</b><br>
 Sind Kanten, wo bei Wegnahme einer solchen Kante der Graph in mehr Komponenten zerf&auml;llt als er vorher Komponenten hatte.<p>
+
+<b>B&auml;ume:</b><br>
+Ein Graph ist dann ein Baum wenn er um einen Knoten mehr als Kanten hat und der Graph zusammenh&auml;ngend ist.<p>
+
+<b>Wald:</b><br>
+Ein Graph ist dann ein Wald, wenn er nicht zusammenh&auml;ngend ist und die Anzahl der Kanten gleich der Anzahl der Knoten minus der Anzahl der Komponenten ist.<p>
 
 </html>

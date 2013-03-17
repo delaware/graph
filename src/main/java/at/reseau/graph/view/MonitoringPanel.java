@@ -43,7 +43,7 @@ public class MonitoringPanel extends JPanel {
 		String text = "<font size =3 face=Fixedsys>";
 
 		// selected nodes
-		text += "<b>Beteiligte Knoten:</b><br>";
+		text += "<p><b>Beteiligte Knoten:</b><br>";
 		text += "Anzahl: " + m.getSize() + "<br>";
 		String knotenText = "{ }";
 		text += "Knoten:";
@@ -73,6 +73,13 @@ public class MonitoringPanel extends JPanel {
 			kantenText += " }";
 		}
 		text += kantenText + "<br>";
+		
+		text += "<p><b>Knotengrade:</b><br>";
+		ArrayList<Integer> degrees = m.getDegreeList();
+		for(int i = 0; i < degrees.size(); i++) {
+			text += "Knoten " + (i + 1) + ": " + degrees.get(i) + "<br>";
+		}
+		text += "</p>";
 		
 		textPane.setText(text);
 		textPane.setCaretPosition(0);
