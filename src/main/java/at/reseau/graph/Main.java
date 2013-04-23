@@ -14,6 +14,7 @@ public class Main
 			public void run() {
 				try {
 					new  MainFrame().setVisible(true);
+					
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

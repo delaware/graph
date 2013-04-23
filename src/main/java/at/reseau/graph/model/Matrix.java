@@ -73,9 +73,11 @@ public class Matrix implements BaseMatrix, Serializable{
     public void random() {
 		for (int i = 0; i < size; i++)
             for (int j = 0; j < size; j++) {
-            	int r = (Math.random()<0.8)?0:1;
-                this.setValueAt(i, j, r);
-                this.setValueAt(j, i, r);
+                if(i!=j) {
+                	int r = (Math.random()<0.8)?0:1;
+                	this.setValueAt(i, j, r);
+                	this.setValueAt(j, i, r);
+                }
             }
     }
 

@@ -48,27 +48,34 @@ public class CalculationPanel extends JPanel {
 		text += "<p><b>KOMPONENTEN:</b><br>";
 		text += "Anzahl: " + path.getComponents() + "<br>";
 		text += "</p>";
-		
-		text += "<p><b>RADIUS: </b>";
-		text += distance.getRadius() + "<br>";
+
+		text += "<p><b>KANTENANZAHL:</b><br>";
+		text += adjacency.getNumberOfEdges();
 		text += "</p>";
 		
-		text += "<p><b>DURCHMESSER: </b>";
-		text += distance.getDiameter() + "<br>";
-		text += "</p>";
-		
+		if(path.getComponents() == 1) {
+			text += "<p><b>RADIUS: </b>";
+			text += distance.getRadius() + "<br>";
+			text += "</p>";
+			
+			text += "<p><b>DURCHMESSER: </b>";
+			text += distance.getDiameter() + "<br>";
+			text += "</p>";
+		}
+			
 		text += "<p><b>EXZENTRITÄTEN <font color=\"red\">(ZENTRUM)</font>:</b><br>";
-		ArrayList<Integer> eccentricity = distance.getEccentricity();
-		for(int i = 0; i < eccentricity.size(); i++) {
-				if(distance.getRadius() == eccentricity.get(i) && eccentricity.get(i) >= 1) {
-					text += "<font color=\"red\">Knoten " + (i + 1) + ": " + eccentricity.get(i) + "</font>";
+		ArrayList<Integer> eccentricities = distance.getEccentricity();
+		for(int i = 0; i < eccentricities.size(); i++) {
+				if(distance.getRadius() == eccentricities.get(i) && eccentricities.get(i) >= 1 && path.getComponents() == 1) {
+					text += "<font color=\"red\">Knoten " + (i + 1) + ": " + eccentricities.get(i) + "</font>";
 				} else {
-					text += "Knoten " + (i + 1) + ": " + eccentricity.get(i);	
+					text += "Knoten " + (i + 1) + ": " + eccentricities.get(i);	
 				}
 			text += "<br>";
 		}
 		text += "</p>";
 		
+
 		text += "<p><b>ARTIKULATION:</b><br>";
 		ArrayList<Integer> articulations = path.getArticulations(adjacency);
 		text += "Anzahl: " + articulations.size() + "<br>";
